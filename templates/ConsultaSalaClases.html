@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Horarios FCI</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<head>
+    <title>Tabla</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="mainConsulta">
+        <div class = "container">
+            <div class="signup">
+                <label for="chk" aria-hidden="true">solicitud salas</label>
+                <label for="diasSemana">Selecciona un día de la semana:</label>
+                <select id="diasSemana" name="diasSemana">
+                    <option value="lunes">Lunes</option>
+                    <option value="martes">Martes</option>
+                    <option value="miercoles">Miércoles</option>
+                    <option value="jueves">Jueves</option>
+                    <option value="viernes">Viernes</option>
+                    <option value="sabado">Sábado</option>
+                    <option value="domingo">Domingo</option>
+                </select>
+                <input type="text" id="campo2" placeholder="Consulta periodo">
+                <button id="mostrarTablaBtn">Mostrar Disponibilidad de salas</button>
+            </div>
+        </div>
+                <div id="tableContainer">
+
+                    <script>
+                    $(document).ready(function() {
+                                                        $("#mostrarTablaBtn").click(function() {
+                                                            var valorCampo1 = $("#campo1").val();
+                                                            var valorCampo2 = $("#campo2").val();
+
+                                                            // Realizar una solicitud AJAX para obtener los datos del DataFrame
+                                                            $.ajax({
+                                                                url: '/tabla',
+                                                                type: 'GET',
+                                                                data: {
+                                                                    campo1: valorCampo1,
+                                                                    campo2: valorCampo2
+                                                                    },
+                                                                success: function(data) {
+                                                                                            // Convertir los datos JSON en un objeto JavaScript
+                                                                                            var jsonData = JSON.parse(data);
+
+                                                                                            // Generar la tabla HTML dinámicamente
+                                                                                            var tableHTML = '<table class="styled-table">';
+                                                                                            tableHTML += '<thead><tr>';
+                                                                                            for (var key in jsonData[0]) {
+                                                                                                tableHTML += '<th>' + key + '</th>';
+                                                                                            }
+                                                                                            tableHTML += '</tr></thead>';
+                                                                                            tableHTML += '<tbody>';
+                                                                                            for (var i = 0; i < jsonData.length; i++) {
+                                                                                                tableHTML += '<tr>';
+                                                                                                for (var key in jsonData[i]) {
+                                                                                                    tableHTML += '<td>' + jsonData[i][key] + '</td>';
+                                                                                                }
+                                                                                                tableHTML += '</tr>';
+                                                                                            }
+                                                                                            tableHTML += '</tbody></table>';
+
+                                                                                            // Insertar la tabla en el contenedor
+                                                                                            $("#tableContainer").html(tableHTML);
+                                                                                        }
+                                                                });
+                                                        });
+                                                    });
+                    </script>
+                </div>   
+
+ 
+    </div>
+</body>
+</html>
