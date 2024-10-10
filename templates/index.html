@@ -9,17 +9,66 @@
 </head>
 <body>
     <div class="navbar">
-        <a href="/"><img src="{{ url_for('static', filename='logo1.png') }}" alt="Logo"></a>
-        <a href="/ConsultaSalaClases">Consulta salas</a>
-        <a href="/login">Iniciar sesión</a>
+        <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo"></a>
         <div class="navbar-links">
-            <!-- <a href="/login"><img src="{{ url_for('static', filename='iniciarsesion.png') }}" alt="Logo"></a> -->  
+            <a href="/consulta">Consultas</a>
+            <a href="/login">Perfil</a>
+            <a href="/login"><img src="{{ url_for('static', filename='iniciarsesion.png') }}" alt="Logo"></a>  
         </div>
     </div>
 
     <!-- Contenedor principal -->
     <div class="container">
-        <!-- Puedes agregar aquí el contenido de la página -->
+        <div class="content-flex">
+            <!-- Agregar una imagen -->
+            <img src="{{ url_for('static', filename='quienessomos.png') }}" alt="Imagen descriptiva" class="imagen-principal">
+            
+            <!-- Agregar un cuadro de texto -->
+            <div class="cuadro-texto">
+                <h2>Quiénes somos y qué hacemos</h2>
+                <p>Somos un grupo de ingenieros matemáticos especializados en la modelación de sistemas complejos. 
+                    Nuestro enfoque se basa en la optimización de problemas no lineales, el uso de modelos binarios y de programación entera.
+                     Contamos con un conocimiento avanzado en minería de datos y machine learning, que combinado con optimización matemática
+                      nos permite ofrecer soluciones únicas y diferenciadoras. Nuestro objetivo es transformar problemas complejos en soluciones 
+                      matemáticas efectivas para mejorar la planificación y optimizar distintos procesos.</p>
+            </div>
+        </div>
+        
+        <!-- Línea de separación -->
+        <hr class="linea-separacion">
+        
+        <!-- Nueva sección con cuadro de texto y una imagen a la derecha -->
+        <div class="content-flex">
+            <!-- Cuadro de texto -->
+            <div class="cuadro-texto">
+                <h2>Nuestra metodología</h2>
+                <p>Nuestra metodología de trabajo se basa en el diseño de soluciones personalizadas, como un "traje a la medida" para cada problematica. 
+                    Entendemos que cada organización tiene una realidad y cultura distintas, por lo que es fundamental ajustar los modelos a las necesidades específicas de 
+                    cada cliente. No imponemos un modelo estándar, sino que adaptamos nuestras herramientas matemáticas para resolver los problemas únicos de cada empresa, 
+                    mejorando los objetivos en la dirección deseada.</p>
+            </div>
+            
+            <!-- Agregar una imagen -->
+            <img src="{{ url_for('static', filename='KKT.png') }}" alt="Imagen organizativa" class="imagen-derecha">
+        </div>
+
+
+        <!-- Línea de separación -->
+        <hr class="linea-separacion">
+        
+        <div class="content-flex">
+            <!-- Agregar una imagen -->
+            <img src="{{ url_for('static', filename='procesoTrabajo.png') }}" alt="Imagen descriptiva" class="imagen-principal">
+            
+            <!-- Agregar un cuadro de texto -->
+            <div class="cuadro-texto">
+                <h2>Nuestro proceso de trabajo</h2>
+                <p>Nos acercamos al cliente para identificar su problema, diseñamos un modelo de optimización que lo resuelva y probamos la solución en un entorno 
+                    reducido antes de implementar una solución completa. Trabajamos para generar pruebas de carácter y asegurar que nuestras soluciones sean robustas 
+                    y efectivas. Nuestra capacidad técnica para modelar matemáticamente se sustenta en nuestra experiencia, lo cual garantiza la calidad de nuestras soluciones.</p>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

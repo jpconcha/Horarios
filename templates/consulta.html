@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horarios FCI</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesPrincipal.css') }}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/"><img src="{{ url_for('static', filename='logo.png') }}" alt="Logo"></a>
+        <div class="navbar-links">
+            <a href="/ConsultaSalaClases">Consulta salas</a>
+            <a href="/login">Perfil</a>
+            <a href="/login"><img src="{{ url_for('static', filename='iniciarsesion.png') }}" alt="Logo"></a>  
+        </div>
+    </div>
+
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Formulario de contacto -->
+        <div class="contact-form">
+            <h2>Envíanos un mensaje</h2>
+            <form action="/enviar_mensaje" method="POST">
+                <label for="mensaje"></label>
+                <textarea id="mensaje" name="mensaje" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+                
+                <!-- Contenedor flex para los botones -->
+                <div class="content-flex">
+                    <button type="submit">Enviar</button>
+                    <button type="button">Agendar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
