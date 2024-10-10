@@ -9,6 +9,7 @@
 #pathBDMiraflores = os.path.join(os.path.dirname(os.path.abspath('..\\generahoraraio.py')), 'Horarios 1er Sem 2023\\Horarios Miraflores\\HorariosMiraflores.xlsx')
 #BDMiraflores=pd.read_excel(pathBDMiraflores,sheet_name='Horario',dtype={'Grupo': str,'Sala': str}) 
 import pandas as pd
+import os
 from flask import Flask, render_template, jsonify, request, redirect
 from ConsultaBDMiraflores import ConsultaDisponibilidadSalas
 import numpy as np
@@ -32,6 +33,20 @@ def index():
 @app.route('/ConsultaSalaClases')
 def consultaSala():
     return render_template('ConsultaSalaClases.html')
+
+@app.route('/enviar_mensaje', methods=['POST'])
+def enviar_mensaje():
+    if request.method == 'POST':
+        mensaje = request.form['mensaje']
+        if mensaje:
+            print('Mensaje enviado con éxito')
+        else:
+            print('Mensaje fallido')
+        return redirect('/')
+
+@app.route('/consulta')
+def consulta():
+    return render_template('consulta.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
