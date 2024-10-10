@@ -7,7 +7,6 @@
 
 #from gurobipy.gurobipy import quicksum
 import os
-
 from xlrd import open_workbook
 import pandas as pd
 import unicodedata
@@ -18,7 +17,7 @@ from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.table import WD_ALIGN_VERTICAL
 from docx.shared import RGBColor,Cm, Inches, Pt
 from docx.shared import Mm
-from sympy.codegen.cnodes import restrict
+#from sympy.codegen.cnodes import restrict
 
 # Consideraciones:
 #       i) Grupos de cursos armados.

@@ -116,5 +116,6 @@ def obtener_tabla():
     # Retornar los datos como respuesta JSON
     return jsonify(json_data)
 
+
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)))
