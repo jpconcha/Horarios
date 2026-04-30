@@ -10,6 +10,7 @@
 #BDMiraflores=pd.read_excel(pathBDMiraflores,sheet_name='Horario',dtype={'Grupo': str,'Sala': str}) 
 import pandas as pd
 import os
+import subprocess
 from flask import Flask, render_template, jsonify, request, redirect
 from ConsultaBDMiraflores import ConsultaDisponibilidadSalas
 import numpy as np
@@ -86,6 +87,66 @@ def login():
     
     return render_template('login.html')
 
+
+
+
+DEFAULT_HORARIOS_SCRIPT = os.environ.get(
+    "HORARIOS_SCRIPT_PATH",
+    os.path.expanduser("~/jpconcha/Horario/bin/horarios miraflores.py")
+)
+DEFAULT_PYTHON_CMD = os.environ.get("HORARIOS_PYTHON_CMD", "python")
+
+@app.route('/generador_horarios', methods=['GET'])
+def generador_horarios():
+    return render_template(
+        'generador_horarios.html',
+        script_path=DEFAULT_HORARIOS_SCRIPT,
+        python_path=DEFAULT_PYTHON_CMD,
+        result=None
+    )
+
+@app.route('/generar_horario', methods=['POST'])
+def generar_horario():
+    script_path = request.form.get('script_path', DEFAULT_HORARIOS_SCRIPT).strip()
+    python_path = request.form.get('python_path', DEFAULT_PYTHON_CMD).strip()
+
+    if not os.path.isfile(script_path):
+        result = {
+            'success': False,
+            'returncode': -1,
+            'command': f"{python_path} {script_path}",
+            'output': f"No existe el script en la ruta indicada: {script_path}"
+        }
+        return render_template('generador_horarios.html', script_path=script_path, python_path=python_path, result=result)
+
+    command = [python_path, script_path]
+
+    try:
+        completed = subprocess.run(
+            command,
+            capture_output=True,
+            text=True,
+            cwd=os.path.dirname(script_path) or None
+        )
+        output = (completed.stdout or '')
+        if completed.stderr:
+            output += "\n[stderr]\n" + completed.stderr
+
+        result = {
+            'success': completed.returncode == 0,
+            'returncode': completed.returncode,
+            'command': ' '.join(command),
+            'output': output.strip() or 'Sin salida.'
+        }
+    except Exception as exc:
+        result = {
+            'success': False,
+            'returncode': -1,
+            'command': ' '.join(command),
+            'output': f'Error al ejecutar el script: {exc}'
+        }
+
+    return render_template('generador_horarios.html', script_path=script_path, python_path=python_path, result=result)
 
 @app.route('/tabla', methods=['GET'])
 def obtener_tabla():
