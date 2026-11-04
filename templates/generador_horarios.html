@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Horarios Miraflores</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    .card { max-width: 900px; border: 1px solid #ddd; border-radius: 10px; padding: 1.5rem; }
+    input[type="text"] { width: 100%; padding: 0.6rem; margin: 0.5rem 0 1rem 0; }
+    button { padding: 0.6rem 1rem; border: none; border-radius: 6px; background: #0d6efd; color: #fff; cursor: pointer; }
+    pre { background: #f6f8fa; border-radius: 8px; padding: 1rem; overflow-x: auto; }
+    .ok { color: #1b7f3b; }
+    .error { color: #b42318; }
+    .hint { color: #555; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Generar horario (Miraflores)</h1>
+    <p class="hint">Esta página ejecuta <code>horarios miraflores.py</code> desde tu PC.</p>
+
+    <form method="post" action="/generar_horario">
+      <label for="script_path"><strong>Ruta al script</strong></label>
+      <input id="script_path" name="script_path" type="text" value="{{ script_path }}" />
+
+      <label for="python_path"><strong>Comando de Python</strong></label>
+      <input id="python_path" name="python_path" type="text" value="{{ python_path }}" placeholder="python o python3" />
+
+      <button type="submit">Ejecutar generador</button>
+    </form>
+
+    {% if result %}
+      <h2 class="{{ 'ok' if result.success else 'error' }}">
+        {{ 'Ejecución correcta' if result.success else 'Ejecución con error' }}
+      </h2>
+      <p><strong>Comando:</strong> <code>{{ result.command }}</code></p>
+      <p><strong>Código de salida:</strong> {{ result.returncode }}</p>
+      <h3>Salida</h3>
+      <pre>{{ result.output }}</pre>
+    {% endif %}
+  </div>
+</body>
+</html>
